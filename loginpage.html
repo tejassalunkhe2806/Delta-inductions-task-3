@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Music Website</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #181818;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background-color: #282828;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        width: 300px;
+        text-align: center;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+      }
+
+      .input-group {
+        margin-bottom: 15px;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #404040;
+        color: #fff;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #1db954;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #1ed760;
+      }
+
+      .message {
+        margin-top: 15px;
+      }
+
+      .message a {
+        color: #1db954;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .message a:hover {
+        text-decoration: underline;
+      }
+
+      .signup-form {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="login-form">
+        <h1>Login</h1>
+        <form id="loginForm">
+          <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required />
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <button type="submit">Login</button>
+          <p class="message">
+            Not registered? <a href="#" id="showSignup">Create an account</a>
+          </p>
+        </form>
+      </div>
+
+      <div class="signup-form">
+        <h1>Sign Up</h1>
+        <form id="signupForm">
+          <div class="input-group">
+            <label for="newUsername">Username</label>
+            <input type="text" id="newUsername" name="newUsername" required />
+          </div>
+          <div class="input-group">
+            <label for="newPassword">Password</label>
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              required
+            />
+          </div>
+          <button type="submit">Sign Up</button>
+          <p class="message">
+            Already registered? <a href="#" id="showLogin">Login</a>
+          </p>
+        </form>
+      </div>
+    </div>
+    <script>
+      document
+        .getElementById("showSignup")
+        .addEventListener("click", function () {
+          document.querySelector(".login-form").style.display = "none";
+          document.querySelector(".signup-form").style.display = "block";
+        });
+
+      document
+        .getElementById("showLogin")
+        .addEventListener("click", function () {
+          document.querySelector(".login-form").style.display = "block";
+          document.querySelector(".signup-form").style.display = "none";
+        });
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Add your login logic here
+          alert("Login submitted");
+        });
+
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Add your signup logic here
+          alert("Signup submitted");
+        });
+    </script>
+  </body>
+</html>
