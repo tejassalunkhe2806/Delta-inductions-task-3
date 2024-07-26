@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Website</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #181818;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      header {
+        width: 100%;
+        background-color: #282828;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      header h1 {
+        margin: 0;
+      }
+
+      .container {
+        width: 80%;
+        margin: 20px 0;
+      }
+
+      .search-bar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .search-bar input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #404040;
+        color: #fff;
+      }
+
+      .songs-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      .song {
+        background-color: #282828;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 10px;
+        width: 200px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      .song audio {
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      .like,
+      .dislike {
+        cursor: pointer;
+        margin: 0 10px;
+      }
+
+      .liked {
+        color: #1db954;
+      }
+
+      .disliked {
+        color: #e02424;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Music Website</h1>
+    </header>
+    <div class="container">
+      <div class="search-bar">
+        <input type="text" id="search" placeholder="Search for songs..." />
+      </div>
+      <div class="songs-list" id="songsList">
+        <!-- Songs will be dynamically added here -->
+      </div>
+    </div>
+    <script>
+      const songs = [
+        {
+          id: 1,
+          name: "Song 1",
+          src: "songs\Agar Ho Tum - Mr. And Mrs. Mahi 128 Kbps.mp3",
+        },
+        {
+          id: 2,
+          name: "Song 2",
+          src: "songs\Pushpa Pushpa - Pushpa 2 The Rule 128 Kbps.mp3",
+        },
+        {
+          id: 3,
+          name: "Song 3",
+          src: "songs\Tauba Tauba - Bad Newz 128 Kbps.mp3",
+        },
+      ];
+
+      function renderSongs(filter = "") {
+        const songsList = document.getElementById("songsList");
+        songsList.innerHTML = "";
+        const filteredSongs = songs.filter((song) =>
+          song.name.toLowerCase().includes(filter.toLowerCase())
+        );
+        filteredSongs.forEach((song) => {
+          const songDiv = document.createElement("div");
+          songDiv.className = "song";
+          songDiv.innerHTML = `
+                    <h3>${song.name}</h3>
+                    <audio controls>
+                        <source src="${song.src}" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div>
+                        <span class="like" data-id="${song.id}">👍</span>
+                        <span class="dislike" data-id="${song.id}">👎</span>
+                    </div>
+                `;
+          songsList.appendChild(songDiv);
+        });
+      }
+
+      document.getElementById("search").addEventListener("input", function () {
+        renderSongs(this.value);
+      });
+
+      document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("like")) {
+          const songId = e.target.getAttribute("data-id");
+          toggleLikeDislike(songId, "like");
+        } else if (e.target.classList.contains("dislike")) {
+          const songId = e.target.getAttribute("data-id");
+          toggleLikeDislike(songId, "dislike");
+        }
+      });
+
+      function toggleLikeDislike(songId, action) {
+        const songElement = document.querySelector(`[data-id="${songId}"]`);
+        const likeElement = songElement.closest(".song").querySelector(".like");
+        const dislikeElement = songElement
+          .closest(".song")
+          .querySelector(".dislike");
+
+        if (action === "like") {
+          likeElement.classList.toggle("liked");
+          dislikeElement.classList.remove("disliked");
+        } else {
+          dislikeElement.classList.toggle("disliked");
+          likeElement.classList.remove("liked");
+        }
+      }
+
+      renderSongs();
+    </script>
+  </body>
+</html>
